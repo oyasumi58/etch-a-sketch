@@ -55,8 +55,8 @@ function passer() {
         smallDiv.classList = "smallDiv"
         smallDiv.id = `D-${j},`;
         smallDiv.id += `F-${i}`;
-        console.log(j);
-        console.log(smallDiv);
+        //console.log(j);
+        //console.log(smallDiv);
         element.appendChild(smallDiv);
     }
 }
@@ -70,18 +70,28 @@ let smallDivs = document.querySelectorAll(".smallDiv");
 //console.log(smallDivs);
 
 //hover effect
-function addHover(box) {
-    box.classList = "hover";
+function addHover(element) {
+    hovElement = element
+    console.log(`${hovElement}is hover`);
+    hovElement.classList.add("hover");
 }
 
-function handler1() {
+function rmHover(element) {
+    hovElement = element
+    console.log(`${hovElement}is not hover`);
+    hovElement.classList.remove("hover");
+}
+
+function addListener() {
     for (i=0;i<smallDivsArray.length;i++) {
         let element = smallDivsArray[i];
-        element.addEventListener("mouseenter",addHover);
+        //console.log(element);
+        element.addEventListener("mouseenter",() => addHover(element));
+        element.addEventListener("mouseleave",() => rmHover(element));
     }
    
 }
 
-//let smallDivsArray = Array.from(smallDivs);
-
-// smallDivsArray.forEach(handler1());
+let smallDivsArray = Array.from(smallDivs);
+//console.log(smallDivsArray);
+addListener();
