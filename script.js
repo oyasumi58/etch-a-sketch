@@ -1,7 +1,7 @@
 console.log("test");
-
+//grid making
 const divM = document.querySelector("#containerM");
-console.log(divM);
+//console.log(divM);
 
 
 let div1 = document.createElement("div");
@@ -45,15 +45,43 @@ const midDivList = document.getElementsByClassName('midDiv');
 //console.log(midDivList);
 const midDivArray = Array.from(midDivList);
 //console.log(midDivArray);
+let smallDiv;
 function passer() {
+    
     for (i=0;i<16;i++) {
         let element = midDivArray[i];
         //console.log(element);
-        let smallDiv = document.createElement("div");
+        smallDiv = document.createElement("div");
         smallDiv.classList = "smallDiv"
-        smallDiv.id = `${i}`;
-        //console.log(smallDiv);
+        smallDiv.id = `D-${j},`;
+        smallDiv.id += `F-${i}`;
+        console.log(j);
+        console.log(smallDiv);
         element.appendChild(smallDiv);
     }
 }
-midDivArray.forEach(() => passer());
+
+for (j=0; j<midDivArray.length; j++) {
+    passer();
+}
+
+let smallDivs = document.querySelectorAll(".smallDiv");
+
+//console.log(smallDivs);
+
+//hover effect
+function addHover(box) {
+    box.classList = "hover";
+}
+
+function handler1() {
+    for (i=0;i<smallDivsArray.length;i++) {
+        let element = smallDivsArray[i];
+        element.addEventListener("mouseenter",addHover);
+    }
+   
+}
+
+//let smallDivsArray = Array.from(smallDivs);
+
+// smallDivsArray.forEach(handler1());
