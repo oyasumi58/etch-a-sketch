@@ -28,6 +28,8 @@ function passer() {
         //console.log(midDivArray[i]);
         smallDiv = document.createElement("div");
         smallDiv.classList = "smallDiv"
+        smallDiv.style.opacity = 0.0;
+        smallDiv.dataset.opacity=0;
         // smallDiv.id = `D-${j},`;
         // smallDiv.id += `F-${i}`;
         //console.log(j);
@@ -148,11 +150,39 @@ function randomColor() {
 
 //console.log(randomColor());
 
-function addStyle(element) {
-   
+function addStyleAndOpac(element) {
     hovElement = element;
-    rgb = randomColor();
-    hovElement.style.backgroundColor = rgb;
+    if (hovElement.classList.contains("rainbow")) {
+        if (hovElement.style.opacity >= 1) {
+
+        } else {
+            addOpacity(element);
+        }
+        
+    } else {
+        addStyle(element);
+        addOpacity(element);
+    }
+}
+
+function addStyle(element) {
+    hovElement = element;
+        hovElement.classList.add("rainbow");
+        rgb = randomColor();
+        hovElement.style.backgroundColor = rgb;
+        hovElement.style.opacity = 0.1;      
+}
+
+function addOpacity(element) {
+    hovElement = element;
+    let opacity = parseInt(hovElement.dataset.opacity);
+    if (opacity < 10){
+        opacity += 1;
+    }
+    hovElement.dataset.opacity = opacity
+    hovElement.style.opacity = 0.1 *opacity;
+        console.log(hovElement.style.opacity)
+       
 }
 
 //new listener
@@ -162,7 +192,16 @@ function addListener() {
     for (i=0;i<smallDivsArray.length;i++) {
         let element = smallDivsArray[i];
         //console.log(element);
-        element.addEventListener("mouseenter",() => addStyle(element));
+        element.addEventListener("mouseenter",() => addStyleAndOpac(element));
         //element.addEventListener("mouseleave",() => rmHover(element));
     }
 }
+
+// let el = e.target;
+// let opacity = parseInt(el.dataset.opacity);
+// if (opacity < 10) {
+//     opacity += 1
+//     el.dataset.opacity = opacity
+//     el.style.opacity = 0.1 * opacity
+// }
+
