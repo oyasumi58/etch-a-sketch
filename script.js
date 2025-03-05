@@ -33,7 +33,7 @@ function passer() {
         //console.log(j);
         //console.log(smallDiv);
         element.appendChild(smallDiv);
-        console.log("passes lol");
+        //console.log("passes lol");
     }
 }
 
@@ -46,29 +46,30 @@ let smallDivs = document.querySelectorAll(".smallDiv");
 //console.log(smallDivs);
 
 //hover effect
-function addHover(element) {
-    hovElement = element
-    //console.log(`${hovElement}is hover`);
-    hovElement.classList.add("hover");
-}
+// function addHover(element) {
+//     hovElement = element
+//     //console.log(`${hovElement}is hover`);
+//     hovElement.classList.add("hover");
+// }
 
-function rmHover(element) {
-    hovElement = element
-    //console.log(`${hovElement}is not hover`);
-    hovElement.classList.remove("hover");
-}
+// function rmHover(element) {
+//     hovElement = element
+//     //console.log(`${hovElement}is not hover`);
+//     hovElement.classList.remove("hover");
+// }
 
-function addListener() {
-    smallDivs = document.querySelectorAll(".smallDiv");
-    smallDivsArray = Array.from(smallDivs);
-    for (i=0;i<smallDivsArray.length;i++) {
-        let element = smallDivsArray[i];
-        //console.log(element);
-        element.addEventListener("mouseenter",() => addHover(element));
-        //element.addEventListener("mouseleave",() => rmHover(element));
-    }
+//original event listener
+// function addListener() {
+//     smallDivs = document.querySelectorAll(".smallDiv");
+//     smallDivsArray = Array.from(smallDivs);
+//     for (i=0;i<smallDivsArray.length;i++) {
+//         let element = smallDivsArray[i];
+//         //console.log(element);
+//         element.addEventListener("mouseenter",() => addHover(element));
+//         //element.addEventListener("mouseleave",() => rmHover(element));
+//     }
    
-}
+// }
 
 let smallDivsArray = Array.from(smallDivs);
 //console.log(smallDivsArray);
@@ -83,7 +84,7 @@ function getPrompt() {
 }
 
 
-console.log(body);
+//console.log(body);
 function reshuffle() {
     //remove
     let child = document.querySelectorAll(".midDiv");
@@ -129,3 +130,39 @@ function numChecker(num) {
 
 let sizeBtn = document.querySelector("#size");
 sizeBtn.addEventListener("click",() => getPrompt())
+
+
+//extra features
+function randomColor() {
+    let resultr = Math.floor(Math.random() *(255 + 1));
+  
+    let resultg = Math.floor(Math.random() *(255 + 1));
+
+    let resultb = Math.floor(Math.random() *(255 + 1));
+    
+    let rgb = `rgb(${resultr},${resultg},${resultb})`;
+    return rgb;
+}
+
+
+
+//console.log(randomColor());
+
+function addStyle(element) {
+   
+    hovElement = element;
+    rgb = randomColor();
+    hovElement.style.backgroundColor = rgb;
+}
+
+//new listener
+function addListener() {
+    smallDivs = document.querySelectorAll(".smallDiv");
+    smallDivsArray = Array.from(smallDivs);
+    for (i=0;i<smallDivsArray.length;i++) {
+        let element = smallDivsArray[i];
+        //console.log(element);
+        element.addEventListener("mouseenter",() => addStyle(element));
+        //element.addEventListener("mouseleave",() => rmHover(element));
+    }
+}
