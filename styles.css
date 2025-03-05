@@ -10,8 +10,9 @@ div {
 #containerM {
     display:flex;
     justify-content: space-between;
-    min-height: 500px;
-    min-width:500px;
+    height: 960px;
+    width:960px;
+    flex-shrink: 0;
     padding: 0px;
     border: 5px solid black;
 }
@@ -26,10 +27,10 @@ div {
 }
 
 .smallDiv {
-    min-width: 20px;
-    min-height:20px;
+    min-width: 1px;
+    min-height:1px;
     aspect-ratio: 1/1;
-    flex-grow: 1;
+   flex-grow: 1;
 }
 
 .hover {
