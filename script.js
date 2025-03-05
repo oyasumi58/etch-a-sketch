@@ -205,3 +205,4 @@ function addListener() {
 //     el.style.opacity = 0.1 * opacity
 // }
 
+//FIX THIS BUG: when I adjust size the color opacity stops working
