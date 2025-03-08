@@ -32,7 +32,11 @@ function makeSmallDiv(gridSize,midDiv) {
     for (j=0 ; j < gridSize ; j++) {
         let elemr = document.createElement('div')
         elemr.id = "smallDiv";
-        giveListener(elemr);
+        if (divM.id === "containerM") {
+            giveListenerDefault(elemr);
+        } else if (divM.id === "containerR") {
+            giveListenerRainbow(elemr);
+        } else {console.log("broke")}
         midDiv.appendChild(elemr);
     }
 }
@@ -41,7 +45,7 @@ createGrid(gridSize);
 
 
 //step 3: inside function > make each div with the styles and stuff
-function giveListener(elem) {
+function giveListenerDefault(elem) {
     elem.addEventListener("mouseenter", (e) => {
         e.target.classList = "hover";
         //console.log(e.target);
@@ -54,11 +58,19 @@ function numChecker(num) {
         if (+num > 100 || +num < 1) {
             alert("Size limit breached, try again");
         } else {
+            let divid = divM.id;
+            console.log(divid);
             divM.remove();
             divM = document.createElement("div")
-            divM.id = "containerM"
+            if (divid === "containerM") {
+                divM.id = "containerM"
+            } else if (divid === "containerR") {
+                divM.id = "containerR"
+            } else {
+                console.log("broken in size")
+            }
             body.appendChild(divM);
-            console.log(divM);
+            //console.log(divM);
             let sizing = +num;
             gridSize = sizing;
             createGrid(gridSize);
@@ -69,11 +81,44 @@ function numChecker(num) {
 }
 
 
-function getPrompt() {
+function getPromptB() {
     let message = prompt("Number of squares per side? \nMax size 100 each")
     numChecker(message);
 }
 let sizeBtn = document.querySelector("#size");
-sizeBtn.addEventListener("click",() => getPrompt())
+sizeBtn.addEventListener("click",() => getPromptB())
 
+//add mode switching
+let modeBtn = document.querySelector("#mode");
+modeBtn.addEventListener("click",() => getPromptM())
 
+function getPromptM() {
+    let message = prompt("Switch Mode? Type Y/N")
+    if (message === "Y" || message === "y") {
+        divM.remove();
+        divM = document.createElement("div")
+        divM.id = "containerR"
+        body.appendChild(divM);
+        console.log(divM.id);
+        createGrid(gridSize);
+    }
+}
+
+//rainbow
+function randomColor() {
+    let resultr = Math.floor(Math.random() *(255 + 1));
+    let resultg = Math.floor(Math.random() *(255 + 1));
+    let resultb = Math.floor(Math.random() *(255 + 1));
+    let rgb = `rgb(${resultr},${resultg},${resultb})`;
+    return rgb;
+}
+
+function giveListenerRainbow(elem) {
+    elem.addEventListener("mouseenter",(e) => {
+        let hovElement = e.target;
+        hovElement.classList.add("rainbow");
+        rgb = randomColor();
+        hovElement.style.backgroundColor = rgb;
+        hovElement.style.opacity = 0.1;  
+    })
+}

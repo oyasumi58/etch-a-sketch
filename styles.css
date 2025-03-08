@@ -37,7 +37,7 @@ div {
     /* border: 1px solid rgb(214, 114, 114);  */
 }
 
-#containerM {
+#containerM,#containerR {
     display:flex;
     justify-content: space-between;
     height: 970px;
