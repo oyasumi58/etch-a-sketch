@@ -7,14 +7,6 @@ const body = document.querySelector("body");
 
 //step 2: make createGrid function
 function createGrid(gridSize) {
-    //console.log(elSize);
-    // for (i=0; i < gridSize; i++) {
-    //     console.log("hello");
-    //     let elem = document.createElement('div');
-    //     elem.id = "midDiv";
-    //     divM.appendChild(elem);
-    //     makeSmallDiv(gridSize,elem);
-    // }
     for (i=0 ; i < gridSize; i++) {
         console.log("loop");
         let elem = document.createElement('div');
@@ -36,7 +28,9 @@ function makeSmallDiv(gridSize,midDiv) {
             giveListenerDefault(elemr);
         } else if (divM.id === "containerR") {
             giveListenerRainbow(elemr);
-        } else {console.log("broke")}
+        } else if (divM.id === "containerP") {
+            giveListenerPaint(elemr);
+        } else {console.log("broken in creation")}
         midDiv.appendChild(elemr);
     }
 }
@@ -66,6 +60,8 @@ function numChecker(num) {
                 divM.id = "containerM"
             } else if (divid === "containerR") {
                 divM.id = "containerR"
+            }  else if (divid === "containerP") {
+               divM.id = "containerP" 
             } else {
                 console.log("broken in size")
             }
@@ -93,14 +89,30 @@ let modeBtn = document.querySelector("#mode");
 modeBtn.addEventListener("click",() => getPromptM())
 
 function getPromptM() {
-    let message = prompt("Switch Mode? Type Y/N")
-    if (message === "Y" || message === "y") {
+    let message = prompt("Switch Mode? Type R/P/D")
+    if (message === "R" || message === "r") {
         divM.remove();
         divM = document.createElement("div")
         divM.id = "containerR"
         body.appendChild(divM);
         console.log(divM.id);
         createGrid(gridSize);
+    } else if (message === "P" || message ==="p") {
+        divM.remove();
+        divM = document.createElement("div")
+        divM.id = "containerP"
+        body.appendChild(divM);
+        console.log(divM.id);
+        createGrid(gridSize);
+    } else if (message === "D" || message === "d") {
+        divM.remove();
+        divM = document.createElement("div")
+        divM.id = "containerM"
+        body.appendChild(divM);
+        console.log(divM.id);
+        createGrid(gridSize);
+    } else {
+        alert("Failed, try again");
     }
 }
 
@@ -118,7 +130,24 @@ function giveListenerRainbow(elem) {
         let hovElement = e.target;
         hovElement.classList.add("rainbow");
         rgb = randomColor();
-        hovElement.style.backgroundColor = rgb;
-        hovElement.style.opacity = 0.1;  
+        hovElement.style.backgroundColor = rgb;  
+    })
+}
+
+//opacity mode
+//code referenced from jonnymortemore's github https://github.com/jonnymortemore/odin-etch-a-sketch/blob/main/code.js
+function giveListenerPaint(elem) {
+    elem.dataset.opacity = 0;
+    //console.log(elem.dataset.opacity);
+    elem.addEventListener("mouseenter",(e) => {
+    el = e.target;
+    el.style.backgroundColor = "white";
+    let opacity = parseInt(el.dataset.opacity);
+    if (opacity < 10) {
+        opacity += 1
+        el.dataset.opacity = opacity; //is sorta like a variable specifically for a node
+        el.style.opacity = 0.1 * opacity; // actually applies style
+        //console.log(elem.dataset.opacity);
+    }
     })
 }
