@@ -2,7 +2,8 @@
 console.log("jh")
 let gridSize = 10;
 const CANVAS_SIZE = 960;
-const divM = document.querySelector("#containerM");
+let divM = document.querySelector("#containerM");
+const body = document.querySelector("body");
 
 //step 2: make createGrid function
 function createGrid(gridSize) {
@@ -46,9 +47,33 @@ function giveListener(elem) {
         //console.log(e.target);
     })
 }
-//step 4: in the loop give the eventlistener hover thing too.
+
 //step 5: size
+function numChecker(num) {
+    if (Number.isInteger(+num)) {
+        if (+num > 100 || +num < 1) {
+            alert("Size limit breached, try again");
+        } else {
+            divM.remove();
+            divM = document.createElement("div")
+            divM.id = "containerM"
+            body.appendChild(divM);
+            console.log(divM);
+            let sizing = +num;
+            gridSize = sizing;
+            createGrid(gridSize);
+        }
+    } else {
+        alert("Failed, try again");
+    }
+}
 
 
+function getPrompt() {
+    let message = prompt("Number of squares per side? \nMax size 100 each")
+    numChecker(message);
+}
+let sizeBtn = document.querySelector("#size");
+sizeBtn.addEventListener("click",() => getPrompt())
 
-//FIX THIS BUG: when I adjust size the color opacity stops working
+
